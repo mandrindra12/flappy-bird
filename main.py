@@ -12,8 +12,8 @@ def setup():
     global obs
     py5.size(720, 480)
     #py5.full_screen()
-    bg = py5.load_image("flappy_bg.png")
-    bird = Bird(200, 300, "yellow_bird.png")
+    bg = py5.load_image("./images/flappy_bg.png")
+    bird = Bird(200, 300, "./images/yellow_bird.png")
 def show(pipes, pipe_vel):
     for i in pipes:
         i.display()
@@ -33,7 +33,7 @@ def draw():
     h=rand(100, 400)
     bird.display()
     bird.move(0, vel_y)
-    pipe = Pipe(py5.width, "pipe.png", h)
+    pipe = Pipe(py5.width, "./images/pipe.png", h)
     pipes.append(pipe)
     vel_y = 10
     if pipe.x < 0:
