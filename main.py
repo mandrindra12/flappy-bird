@@ -44,8 +44,7 @@ def draw():
     if py5.is_key_pressed and py5.key ==' ':
         vel_y = -vel_y
     if pipe.x < 0:
-        # pipe.x = py5.width
-        pipe = Pipe(700, rand(100, 400), rand(90, 100))
+        pipe = Pipe(700, rand(50, 400), rand(90, 100))
         game = Game(bird, pipe)
     if bird.y+35 >= py5.height or bird.y+35 <= 0 or (bird.x+35>=pipe.x and bird.x<=pipe.x+100) and (bird.y+35>=pipe.y_lower or bird.y+5 < pipe.upper_height):
         bird = Bird(200, 200)
@@ -56,6 +55,7 @@ def draw():
     if pipe.x > py5.width:
         pipe.x = 0
     game.run(bg, bird_img, pipe_img, pipe_rev_img, vel_y, pipe_vel)
+    
 
 
 def key_pressed():
