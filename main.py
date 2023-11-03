@@ -8,7 +8,8 @@ pipe_vel = -5
 bird = Bird(200, 200)
 pipe = Pipe(700, 300, 100)
 game = Game(bird, pipe)
-gap = rand(80, 150)
+gap = rand(90, 150)
+pipes = []
 
 def setup():
     global bg
@@ -37,27 +38,29 @@ def draw():
     global bird_img
     global pipe_vel
     global game
-    global game_over_bg
-    if py5.is_key_pressed and py5.key == ' ':
-        vel_y = -vel_y
+    global game_over_bg, pipes
     pipe.lower_height = py5.height - pipe.y_lower
-    game.run(bg, bird_img, pipe_img, pipe_rev_img, vel_y, pipe_vel)
-    vel_y = 5
+    vel_y = 3
+    if py5.is_key_pressed and py5.key ==' ':
+        vel_y = -vel_y
     if pipe.x < 0:
-        pipe.x = py5.width
-    if bird.y+35 >= py5.height or bird.y+35 <= 0 or (bird.x+35>=pipe.x and bird.x<=pipe.x+100) and (bird.y+35>=pipe.y_lower or bird.y < pipe.upper_height):
+        # pipe.x = py5.width
+        pipe = Pipe(700, rand(100, 400), rand(90, 100))
+        game = Game(bird, pipe)
+    if bird.y+35 >= py5.height or bird.y+35 <= 0 or (bird.x+35>=pipe.x and bird.x<=pipe.x+100) and (bird.y+35>=pipe.y_lower or bird.y+5 < pipe.upper_height):
         bird = Bird(200, 200)
         py5.image(game_over_bg, 0, 0, py5.width, py5.height)
         pipe = Pipe(700, rand(100, 400), rand(70, 90))
         game = Game(bird, pipe)
         py5.no_loop()
-        """game.over(game_over_bg)"""
     if pipe.x > py5.width:
         pipe.x = 0
+    game.run(bg, bird_img, pipe_img, pipe_rev_img, vel_y, pipe_vel)
 
 
 def key_pressed():
     global pipe_vel
+    global vel_y
     if py5.key == '\n':
         py5.loop()
     if py5.key == py5.CODED:
